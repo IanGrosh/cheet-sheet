@@ -6,7 +6,8 @@
 \usepackage[landscape]{geometry}
 \usepackage{hyperref}
 \usepackage{cheatSheet}
-
+\usepackage{setspace}
+\newcommand{\tabitem}{~~\llap{\textbullet}~~}
 
 \begin{document}
 	
@@ -65,8 +66,28 @@
 			  \verb|COMMENT| & \verb|r'\#[^\n]*'| \\
 			  \verb|newline| & \verb|r'\n+'| 
 		\end{tabular} 
-		
-		\section{project 5 CFG}
+		\section{Context Free Grammars}
+        CFGs Consist of 4 components (Backus-Naur Form or BNF): 
+%\begin{itemize}[leftmargin=*]
+          \begin{tabular}{p{0.23\textwidth}l}
+
+            Terminal Symbols = token or $\epsilon$ & $S \rightarrow a S a$ \\
+            Non-terminal Symbols = syntactic variables  & $S \rightarrow  T $\\
+            Start Symbol S = special non-terminal  &  $T \rightarrow b S b $ \\
+           Production Rules of the form LHS $\rightarrow$ RHS \begin{itemize}
+            \item LHS = A single non-terminal 
+            \item RHS = A string of terminals and non-terminals
+            \item Specify how non-terminals may be expanded
+            \item By default, the LHS of the first production rule is the Start Symbol
+            \end{itemize} & $ T ➔ \epsilon$
+            
+          \end{tabular}
+%\end{itemize}
+Shorthand - vertical bar '\verb!|!' to combine multiple productions \\
+$S \rightarrow a S a | T $ \\
+$T \rightarrow b T b | \epsilon $\\
+		\subsection{project 5 CFG}
+        %\begin{spacing}{\onehalfspacing}
 		\begin{verbatim}
 		program : statements
 		\end{verbatim}
@@ -197,8 +218,31 @@
 			expression : COMMAND_RANDOM '(' expression ')'
 		\end{verbatim}
 		
-		
-		
+		%\end{spacing}
+        \section{Tube IC}
+        \begin{tabular}{p{0.1\textwidth} p{0.23\textwidth}}
+        \verb!val_copy! s1 s2       & s2 = s1 \\
+        \verb!add! s1 s2  s3        & s3 = s1 + s2\\
+        \verb!sub! s1 s2  s3        & s3 = s1 - s2 \\
+        \verb!mult! s1 s2  s3       & s3 = s1 * s2 \\
+        \verb!div! s1 s2  s3        & s3 = s1 / s2 \\
+        \verb!test_less! s1 s2  s3  & If (s1 $<$ s2) set s3 to 1, else set s3 to 0. \\
+        \verb!test_gtr! s1 s2  s3   & If (s1 $>$ s2) set s3 to 1, else set s3 to 0. \\
+        \verb!test_equ! s1 s2  s3   & If (s1 $==$ s2) set s3 to 1, else set s3 to 0. \\
+        \verb!test_nequ! s1 s2  s3  & If (s1 $!=$ s2) set s3 to 1, else set s3 to 0. \\
+        \verb!test_gte! s1 s2  s3   & If (s1 $>=$ s2) set s3 to 1, else set s3 to 0. \\
+        \verb!test_lte! s1 s2  s3   & If (s1 $<=$ s2) set s3 to 1, else set s3 to 0. \\
+        \verb!jump! Lable       & jump to the lable \\
+        \verb!jump_if_0! s1 Lable      & If s1 == 0, jump to Lable. \\
+        \verb!jump_if_n0! s1 Lable       & If s1 != 0, jump to Lable. \\
+        \verb!random! s1 s2       & s2 = a random integer x, where 0 $<=$ x $<$ s1. \\
+        \verb!out_val! s1       & Write a floating-point value of s1 to standard out. \\
+        \verb!out_char! s1      & Write s1 as charto standard out. \\
+
+        \end{tabular}
+		\section{Flow Control exampls}
+        using them jumps
+        %\subsec
 		
 	\end{multicols}
 \end{document}

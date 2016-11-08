@@ -7,6 +7,7 @@
 \usepackage{hyperref}
 \usepackage{cheatSheet}
 \usepackage{setspace}
+\usepackage{forest}
 \newcommand{\tabitem}{~~\llap{\textbullet}~~}
 
 \begin{document}
@@ -138,7 +139,8 @@ $T \rightarrow b T b | \epsilon $\\
 		\end{verbatim}
 		\begin{verbatim}
 		non_empty_comma_sep_expr :
-		non_empty_comma_sep_expr ',' expression
+		non_empty_comma_sep_expr ',' expressi\usepackage{tikz}
+\usetikzlibrary{shapes}on
 		\end{verbatim}
 		\begin{verbatim}
 		expression : var_usage '=' expression
@@ -220,6 +222,7 @@ $T \rightarrow b T b | \epsilon $\\
 		
 		%\end{spacing}
         \section{Tube IC}
+        Scaler ones:
         \begin{tabular}{p{0.1\textwidth} p{0.23\textwidth}}
         \verb!val_copy! s1 s2       & s2 = s1 \\
         \verb!add! s1 s2  s3        & s3 = s1 + s2\\
@@ -238,11 +241,126 @@ $T \rightarrow b T b | \epsilon $\\
         \verb!random! s1 s2       & s2 = a random integer x, where 0 $<=$ x $<$ s1. \\
         \verb!out_val! s1       & Write a floating-point value of s1 to standard out. \\
         \verb!out_char! s1      & Write s1 as charto standard out. \\
-
         \end{tabular}
-		\section{Flow Control exampls}
-        using them jumps
-        %\subsec
+        array ones:
+        \begin{tabular}{p{0.1\textwidth} p{0.2\textwidth}}
+        \verb!ar_get_idx! a1 s2 s3       & In a1, find value at index s2, and put into s1. \\
+        \verb!ar_set_idx! a1 s2 s3        & In a1, set value at index s2 to the value s3\\
+        \verb!ar_get_size! a1 s2        & Calculate the size of a1 and put into s2. \\
+        \verb!ar_set_size! a1 s2       & Resize a1 to have s2 entries. \\
+        \verb!ar_copy! a1 a2       & Duplicate all values within a1 into a2.\\
+        \end{tabular}
+
+        \subsection{Tube AC}
+        \begin{itemize}
+        \begin{tabular}{p{0.25\textwidth}}
+        \item There are no scalar or array variables. \\
+        \item There are eight registers called regA, regB, regC, regD, regE, regF, regG, and regH. These are identical to scalar variables, but you have a limited number of them.\\
+        \item There are no array-based instructions so you must find replacements for the array instructions.\\   
+        \end{tabular}
+        \end{itemize}
+
 		
+        \section{Flow Control exampls}
+        using them jumps
+        
+        \subsection{IF example}
+        \begin{minipage}{0.1\textwidth}
+        
+        \begin{verbatim}
+val x = 1;
+if(x) {
+    print(x);
+}
+        \end{verbatim}
+                \textbf{IC:}\\
+        \verb!val_copy! 1 s2 \\
+        \verb!val_copy! s2 s1  \\
+        \verb!jump_if_0! s1 \verb!if_1! \\
+        \verb!out_val! s1 \\
+        \verb!out_char! '$\backslash $n' \\
+        \verb!if_1:!
+    \end{minipage}
+    \begin{minipage}{0.2\textwidth}
+    \begin{center}
+    \begin{forest}
+      for tree={l+=1em} % increase level distance
+      [program
+        [ asine 
+            [declare 
+                [val] 
+                [x]
+            ]
+            [1]
+        ]
+        [if 
+            [x]
+            [block 
+                [print 
+                    [x]
+                ]
+            ]
+        ]
+      ]
+    \end{forest}
+    \end{center}
+    \end{minipage}%
+
+    \subsection{WHILE}
+\begin{minipage}{0.1\textwidth}
+            \begin{verbatim}
+val x = 6;
+val y = 0;
+while(y < x) {
+    y += 1;
+}
+        \end{verbatim}
+                \textbf{IC:}\\
+        \verb!val_copy! 6 s2 \\
+        \verb!val_copy! s2 s1  \\
+        \verb!val_copy! 0 s4 \\
+        \verb!val_copy! s4 s3  \\
+        \verb!start_1:! \\
+        \verb!test_less! s3 s1 s5 \\
+        \verb!jump_if_0! s5 \verb!end_2! \\
+        \verb!val_copy! 1 s6 \\
+        \verb!add! s3 s6 s7 \\ 
+        \verb!val_copy! s7 s3 \\
+        \verb!jump! \verb!start_1! \\
+        \verb!end_2:!
+    \end{minipage}%
+    \begin{minipage}{0.2\textwidth}
+    \begin{center}
+    \begin{forest}
+      for tree={l+=1em} % increase level distance
+      [program
+        [ asine 
+            [declare 
+                [val] 
+                [x]
+            ]
+            [6]
+        ]
+        [ asine 
+            [declare 
+                [val] 
+                [y]
+            ]
+            [0]
+        ]
+        [while 
+            [$<$ [y] [x] ]
+            [block 
+                [asine 
+                    [y]
+                    [$+$ [y] [1] ]
+                ]
+            ]
+        ]
+      ]
+    \end{forest}
+    \end{center}
+    \end{minipage}
+
 	\end{multicols}
 \end{document}

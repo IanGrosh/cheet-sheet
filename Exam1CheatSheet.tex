@@ -8,6 +8,10 @@
 \usepackage{cheatSheet}
 \usepackage{setspace}
 \usepackage{forest}
+\usepackage{supertabular,booktabs}
+\usepackage{tabularx}
+\usepackage{ltablex} 
+\usepackage{longtable}
 \newcommand{\tabitem}{~~\llap{\textbullet}~~}
 
 \begin{document}
@@ -222,8 +226,8 @@ $T \rightarrow b T b | \epsilon $\\
 		
 		%\end{spacing}
         \section{Tube IC}
-        Scaler ones:
-        \begin{tabular}{p{0.1\textwidth} p{0.23\textwidth}}
+        \subsection{Scaler ones:}
+        \begin{supertabular}{p{.1\textwidth} p{.18\textwidth}} 
         \verb!val_copy! s1 s2       & s2 = s1 \\
         \verb!add! s1 s2  s3        & s3 = s1 + s2\\
         \verb!sub! s1 s2  s3        & s3 = s1 - s2 \\
@@ -241,15 +245,17 @@ $T \rightarrow b T b | \epsilon $\\
         \verb!random! s1 s2       & s2 = a random integer x, where 0 $<=$ x $<$ s1. \\
         \verb!out_val! s1       & Write a floating-point value of s1 to standard out. \\
         \verb!out_char! s1      & Write s1 as charto standard out. \\
-        \end{tabular}
-        array ones:
-        \begin{tabular}{p{0.1\textwidth} p{0.2\textwidth}}
-        \verb!ar_get_idx! a1 s2 s3       & In a1, find value at index s2, and put into s1. \\
-        \verb!ar_set_idx! a1 s2 s3        & In a1, set value at index s2 to the value s3\\
-        \verb!ar_get_size! a1 s2        & Calculate the size of a1 and put into s2. \\
-        \verb!ar_set_size! a1 s2       & Resize a1 to have s2 entries. \\
-        \verb!ar_copy! a1 a2       & Duplicate all values within a1 into a2.\\
-        \end{tabular}
+        \end{supertabular} \\
+        \subsection{array ones:}
+        \begin{supertabular}{p{0.1\textwidth} p{0.2\textwidth}}
+        	\verb!ar_get_idx! a1 s2 s3       & In a1, find value at index s2, and put into s1. \\
+        	\verb!ar_set_idx! a1 s2 s3        & In a1, set value at index s2 to the value s3\\
+        	\verb!ar_get_size! a1 s2        & Calculate the size of a1 and put into s2. \\
+        	\verb!ar_set_size! a1 s2       & Resize a1 to have s2 entries. \\
+        	\verb!ar_copy! a1 a2       & Duplicate all values within a1 into a2.\\
+        \end{supertabular}
+       
+        
 
         \subsection{Tube AC}
         \begin{itemize}
@@ -286,7 +292,7 @@ if(x) {
     \begin{forest}
       for tree={l+=1em} % increase level distance
       [program
-        [ asine 
+        [ assign 
             [declare 
                 [val] 
                 [x]
@@ -334,14 +340,14 @@ while(y < x) {
     \begin{forest}
       for tree={l+=1em} % increase level distance
       [program
-        [ asine 
+        [ assign 
             [declare 
                 [val] 
                 [x]
             ]
             [6]
         ]
-        [ asine 
+        [ assign
             [declare 
                 [val] 
                 [y]
@@ -361,6 +367,22 @@ while(y < x) {
     \end{forest}
     \end{center}
     \end{minipage}
+    
+    \section{Assembly inst}
+    
+    \resizebox{0.35\textwidth}{!}{%
+    \begin{tabular}{lll}
+    	\begin{tabular}{c|cccccc}
+    	L&	0 & 1 & 2 & 3 & 4 & 5  \\ \hline
+    	U&	106  & 4 & 100& 105 & 3 & 103   
+    	\end{tabular}
+    	$\dots$
+    	\begin{tabular}{cccccc}
+    		100 & 101 & 102 & 103 & 104 & 105  \\ \hline
+    		2 & 'a' & 'b' & 1 & 4 & 0  
+    	\end{tabular}
+    \end{tabular}
+	}
 
 	\end{multicols}
 \end{document}

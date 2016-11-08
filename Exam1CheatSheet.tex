@@ -384,5 +384,62 @@ while(y < x) {
     \end{tabular}
 	}
 
+	\begin{minipage}{0.2\textwidth}
+		\subsection{IC code}
+		\verb!val_copy! 5 s1 \\
+		\verb!ar_get_size! 1 s1 s6 \\
+		\verb!ar_get_idx! s1 s6 s2 \\
+		\verb!ar_set_idx! s1 s7 \\
+		\verb!ar_set_size! s1 s7 \\
+	\end{minipage}%	
+	\begin{minipage}{0.2 	\textwidth}
+		\subsection{AC code}
+		\verb!val_copy! 5 regA \\
+		\verb!store! regA 1\\
+		
+		\verb!load! 2 regA\\
+		\verb!load! regA regB\\
+		\verb!store! regB 6\\
+		
+		\verb!load! 2 regA\\
+		\verb!add! 1 regA regA\\
+		\verb!add! regA regB regA\\
+		\verb!mem_copy! regA 1\\
+		
+		\verb!load! 2 regA\\
+		\verb!val_copy! 0 regB \\
+		\verb!load! 4 regC\\
+		\verb!add! 1 regA regA\\
+		\verb!add! regA regB regA\\
+		\verb!store! regC regA\\
+		
+		\verb!load! 2 regA\\
+		\verb!val_copy! 3 regB \\
+		\verb!load! 0 regC\\
+		\verb!store! regB regC\\
+		\verb!add! 1 regC regD\\
+		\verb!add! regD regB regD\\
+		\verb!store! regD 0\\
+		\verb!store! regC 2\\
+		\verb!load! regA regE\\
+		\verb!test_less! regB regE regF\\
+		\verb!jump_if_0! regF \verb!bigger_1!\\
+		\verb!val_copy! regB regF \\
+		\verb!jump!  \verb!end_size_2!\\
+		\verb!bigger_1:!
+		\verb!val_copy! regE regF \\
+		\verb!end_size_2:!\\
+		\verb!while_st_3:!\\
+		\verb!add! 1 regA regA\\
+		\verb!add! 1 regC regC\\
+		\verb!mem_copy! regA 1\\
+		\verb!sub! regF 1 regF\\
+		\verb!jump_if_0! regF \verb!while_end_4!\\
+		\verb!jump! \verb!while_st_3!\\
+		\verb!while_end_4:!\\
+				
+		
+	\end{minipage}
+
 	\end{multicols}
 \end{document}

@@ -370,50 +370,35 @@ while(y < x) {
     
     \section{Assembly inst}
     
-    \resizebox{0.35\textwidth}{!}{%
-    \begin{tabular}{lll}
-    	\begin{tabular}{c|cccccc}
-    	L&	0 & 1 & 2 & 3 & 4 & 5  \\ \hline
-    	U&	106  & 4 & 100& 105 & 3 & 103   
-    	\end{tabular}
-    	$\dots$
-    	\begin{tabular}{cccccc}
-    		100 & 101 & 102 & 103 & 104 & 105  \\ \hline
-    		2 & 'a' & 'b' & 1 & 4 & 0  
-    	\end{tabular}
-    \end{tabular}
-	}
+   
 
-	\begin{minipage}{0.2\textwidth}
-		\subsection{IC code}
-		\verb!val_copy! 5 s1 \\
-		\verb!ar_get_size! 1 s1 s6 \\
-		\verb!ar_get_idx! s1 s6 s2 \\
-		\verb!ar_set_idx! s1 s7 \\
-		\verb!ar_set_size! s1 s7 \\
-	\end{minipage}%	
 	\begin{minipage}{0.2 	\textwidth}
-		\subsection{AC code}
-		\verb!val_copy! 5 regA \\
+		\subsection{arry IC to AC code}
+		\textbf{IC:}\verb!val_copy! 5 s1 
+		\textbf{AC:}\verb!val_copy! 5 regA \\
 		\verb!store! regA 1\\
 		
-		\verb!load! 2 regA\\
+		\textbf{IC:}\verb!ar_get_size! 1 s1 s6 \\
+		\textbf{AC:}\verb!load! 2 regA\\
 		\verb!load! regA regB\\
 		\verb!store! regB 6\\
 		
-		\verb!load! 2 regA\\
+		\textbf{IC:}\verb!ar_get_idx! s1 s6 s2 \\
+		\textbf{AC:}\verb!load! 2 regA\\
 		\verb!add! 1 regA regA\\
 		\verb!add! regA regB regA\\
 		\verb!mem_copy! regA 1\\
 		
-		\verb!load! 2 regA\\
+		\textbf{IC:}\verb!ar_set_idx! s1 s7 \\
+		\textbf{AC:}\verb!load! 2 regA\\
 		\verb!val_copy! 0 regB \\
 		\verb!load! 4 regC\\
 		\verb!add! 1 regA regA\\
 		\verb!add! regA regB regA\\
 		\verb!store! regC regA\\
 		
-		\verb!load! 2 regA\\
+		\textbf{IC:}\verb!ar_set_size! s1 s7 \\
+		\textbf{AC:}\verb!load! 2 regA\\
 		\verb!val_copy! 3 regB \\
 		\verb!load! 0 regC\\
 		\verb!store! regB regC\\
@@ -437,9 +422,43 @@ while(y < x) {
 		\verb!jump_if_0! regF \verb!while_end_4!\\
 		\verb!jump! \verb!while_st_3!\\
 		\verb!while_end_4:!\\
-				
+	\end{minipage}%
+	\begin{minipage}{0.2\textwidth}
+		\subsection{memory}
+
+		    	\begin{tabular}{ccc}
+		    		L & S & F\\ \hline
+		    		0 & 106 & 111\\
+		    		1 & 4  & \\
+		    		2 & 100 & 107 \\
+		    		3 & 105 & \\
+		    		4 & 3 & \\
+		    		5 & 103 & \\
+		    		6 &  & \\
+		    		7 &  & \\
+		    		8 &  & \\
+		    		9 &  & \\
+		    		$\vdots$ &$\vdots$  & \\
+		    		100 & 0 & \\
+		    		101 & 1 & \\
+		    		102 & 'a' & \\
+		    		103 & 2 & \\
+		    		104 & 'b' & \\
+		    		105 & 'c' & \\
+		    		106 & 0 & 3 \\
+		    		107 &  & 'a'\\
+		    		108 &  & 'b'\\
+		    		109 &  & \\
+		    		111 &  & \\
+		    		112 &  & \\
+		    		113 &  & \\
+		    		
+		    	
+		    \end{tabular}
+	
+		
+		
 		
 	\end{minipage}
-
 	\end{multicols}
 \end{document}
